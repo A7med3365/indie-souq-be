@@ -33,4 +33,21 @@ const getUserCtrl = async (req: Request, res: Response) => {
   }
 };
 
-export { listUsersCtrl, getUserCtrl };
+const updateUserCtrl = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.userId;
+    const updateData = req.body;
+
+    const user = await User.findByIdAndUpdate(id, updateData, { new: true });
+
+    if (!user) {
+      throw new NotFoundError();
+    }
+
+    res.status(200).send(user);
+  } catch (error) {
+    throw new InternalError();
+  }
+};
+
+export { listUsersCtrl, getUserCtrl, updateUserCtrl };
