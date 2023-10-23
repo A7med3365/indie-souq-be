@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import { BadRequestError } from '../errors/bad-request-error';
-import { User } from '../models/user';
-import { Password } from '../services/password';
+import { BadRequestError } from '../../errors/bad-request-error';
+import { User } from '../../models/user';
+import { Password } from '../../services/password';
 import jwt from 'jsonwebtoken';
 
 const signinCtrl = async (req: Request, res: Response) => {

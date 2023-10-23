@@ -10,7 +10,7 @@ export const validateRequest = (
   const err = validationResult(req);
 
   if (!err.isEmpty()) {
-    // console.log(err);
+    console.log(err);
     throw new RequestValidationError(err.array());
   }
 

@@ -4,8 +4,12 @@ import { Password } from '../services/password';
 // an interface that describes the properties
 // that are required to create a new User
 interface UserAttrs {
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
+  isFilmmaker: boolean;
+  isAdmin: boolean;
 }
 
 // an interface that describes the properties
@@ -17,13 +21,31 @@ interface UserModel extends mongoose.Model<UserDoc> {
 // an interface that describes the properties
 // that a User document has
 interface UserDoc extends mongoose.Document {
+  firstName: string;
+  lastName: string;
+  role: string;
   email: string;
   password: string;
-  name: string;
+  isFilmmaker: boolean;
+  isAdmin: boolean;
+  location: string;
+  languages: string[];
+  avatar: string;
+  banner: string;
+  bio: string;
+  tags: string[];
 }
 
 const userSchema = new mongoose.Schema(
   {
+    firstName: {
+      type: String,
+      required: true,
+    },
+    lastName: {
+      type: String,
+      required: true,
+    },
     email: {
       type: String,
       required: true,
@@ -31,6 +53,36 @@ const userSchema = new mongoose.Schema(
     password: {
       type: String,
       required: true,
+    },
+    isFilmmaker: {
+      type: Boolean,
+      required: true,
+    },
+    isAdmin: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+    location: {
+      type: String,
+      default: 'Bahrain',
+    },
+    languages: {
+      type: [String],
+      default: [],
+    },
+    avatar: {
+      type: String,
+    },
+    banner: {
+      type: String,
+    },
+    bio: {
+      type: String,
+    },
+    tags: {
+      type: [String],
+      default: [],
     },
   },
   {
@@ -65,9 +117,9 @@ userSchema.statics.build = (attrs: UserAttrs) => {
 
 const User = mongoose.model<UserDoc, UserModel>('User', userSchema);
 
-User.build({
-  email: 'lkan',
-  password: 'lkan',
-});
+// User.build({
+//   email: 'lkan',
+//   password: 'lkan',
+// });
 
 export { User, UserAttrs };
