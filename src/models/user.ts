@@ -73,12 +73,15 @@ const userSchema = new mongoose.Schema(
     },
     avatar: {
       type: String,
+      default: '',
     },
     banner: {
       type: String,
+      default: '',
     },
     bio: {
       type: String,
+      default: '',
     },
     tags: {
       type: [String],
