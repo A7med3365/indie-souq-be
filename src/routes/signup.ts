@@ -10,7 +10,7 @@ import { signoutCtrl } from '../controllers/auth/signout';
 import { validateRequest } from '../middleware/validate-req';
 import { currentUser, isAuth } from '../middleware/logged-in-check';
 
-import { listUsersCtrl } from '../controllers/list/users';
+import { listUsersCtrl, getUserCtrl } from '../controllers/list/users';
 
 router.post(
   '/api/users/signup',
@@ -66,5 +66,6 @@ router.post(
 router.get('/api/users/signout', signoutCtrl);
 
 router.get('/api/users', listUsersCtrl);
+router.get('/api/users/:userId', getUserCtrl);
 
 export { router as authRouter };

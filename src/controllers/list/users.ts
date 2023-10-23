@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { InternalError } from '../../errors/internal-error';
+import { NotFoundError } from '../../errors/not-found-error';
 import { User } from '../../models/user';
 
 const listUsersCtrl = async (req: Request, res: Response) => {
@@ -12,4 +13,24 @@ const listUsersCtrl = async (req: Request, res: Response) => {
   }
 };
 
-export { listUsersCtrl };
+const getUserCtrl = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.userId;
+    const user = await User.findById(id);
+
+    if (!user) {
+      throw new NotFoundError();
+    }
+    console.log(user);
+    res.status(200).send(user);
+  } catch (error: unknown) {
+    if (error instanceof NotFoundError) {
+      throw new NotFoundError();
+    } else {
+      console.log(error);
+      throw new InternalError();
+    }
+  }
+};
+
+export { listUsersCtrl, getUserCtrl };
