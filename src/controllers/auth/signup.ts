@@ -40,7 +40,8 @@ const signupCtrl = async (req: Request, res: Response) => {
     req.session = {
       jwt: userJwt,
     };
-
+    console.log('created new user successfully: ');
+    console.log(user);
     res.status(201).send(user);
   } catch (error) {
     console.log(error);
