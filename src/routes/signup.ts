@@ -6,7 +6,7 @@ const router = express.Router();
 import { signupCtrl } from '../controllers/auth/signup';
 import { signinCtrl } from '../controllers/auth/signin';
 import { signoutCtrl } from '../controllers/auth/signout';
-// import { currentUserCtrl } from '../controllers/currentUser';
+import { currentUserCtrl } from '../controllers/auth/currentUser';
 import { validateRequest } from '../middleware/validate-req';
 import { currentUser, isAuth } from '../middleware/logged-in-check';
 
@@ -65,7 +65,7 @@ router.post(
   signinCtrl
 );
 
-// router.get('/api/users/currentuser', currentUser, currentUserCtrl);
+router.get('/api/users/currentuser', currentUser, currentUserCtrl);
 
 router.get('/api/users/signout', signoutCtrl);
 

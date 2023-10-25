@@ -1,7 +1,5 @@
-// import { Request, Response } from 'express';
-// import { BadRequestError } from '../errors/bad-request-error';
-// import jwt from 'jsonwebtoken';
+import { Request, Response } from 'express';
 
-// export const currentUserCtrl = async (req: Request, res: Response) => {
-//   res.status(200).send({ currentUser: req.currentUser || null });
-// };
+export const currentUserCtrl = async (req: Request, res: Response) => {
+  res.status(200).send({ currentUser: req.currentUser || null });
+};
