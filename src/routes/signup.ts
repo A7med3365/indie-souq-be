@@ -1,5 +1,6 @@
 import express from 'express';
 import { body } from 'express-validator';
+import cors from 'cors';
 
 const router = express.Router();
 
@@ -70,7 +71,7 @@ router.get('/api/users/currentuser', currentUser, currentUserCtrl);
 router.get('/api/users/signout', signoutCtrl);
 
 router.get('/api/users', listUsersCtrl);
-router.get('/api/users/:userId', getUserCtrl);
+router.get('/api/users/:userId', cors(), getUserCtrl);
 
 router.put(
   '/api/users/:userId',
