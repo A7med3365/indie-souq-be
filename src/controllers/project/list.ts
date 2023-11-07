@@ -14,6 +14,7 @@ const listProjectCtrl = async (req: Request, res: Response) => {
   }
 };
 
+//todo: add query to filter the projects to published only
 const showProjectCtrl = async (req: Request, res: Response) => {
   const id = req.params.projectId;
   const project = await Project.findById(id);
@@ -27,4 +28,5 @@ const showProjectCtrl = async (req: Request, res: Response) => {
   } catch (error) {}
 };
 
+//todo: add listing of the user projects
 export { listProjectCtrl, showProjectCtrl };

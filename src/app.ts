@@ -8,11 +8,18 @@ const app = express();
 
 const allowedOrigins = ['*'];
 
-const options: cors.CorsOptions = {
-  origin: allowedOrigins,
-};
+// const options: cors.CorsOptions = {
+//   origin: allowedOrigins,
+// };
 
-app.use(cors(options));
+app.use(
+  cors({
+    origin: 'http://localhost:3002',
+    methods: 'GET,PUT,POST,DELETE',
+    allowedHeaders: 'Content-Type,Authorization',
+    credentials: true, // Allow cookies
+  })
+);
 // app.options('*', cors());
 
 app.set('trust proxy', true);
@@ -21,6 +28,7 @@ app.use(
   cookieSession({
     signed: false,
     secure: false, // process.env.NODE_ENV !== 'test', //todo: change this back later
+    sameSite: 'none',
   })
 );
 
