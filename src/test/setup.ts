@@ -7,6 +7,7 @@ let mongo: any;
 
 declare global {
   var signin: () => Promise<string[]>;
+  var signup: () => Promise<string[]>;
 }
 
 beforeAll(async () => {
@@ -33,24 +34,35 @@ afterAll(async () => {
 });
 
 global.signin = async () => {
-  const email = 'test@test.com';
-  const password = 'password';
-  const firstName = 'test';
-  const lastName = 'test';
-  const isFilmmaker = false;
-
   const res = await request(app)
     .post('/api/users/signup')
     .send({
-      email,
-      password,
-      firstName,
-      lastName,
-      isFilmmaker,
+      email: 'test@test.com',
+      password: 'test1234',
+      firstName: 'test',
+      lastName: 'test',
+      isFilmmaker: false,
     })
     .expect(201);
 
   const cookie = res.get('Set-Cookie');
 
   return cookie;
+};
+
+global.signup = async () => {
+  const res = await request(app)
+    .post('/api/users/signup')
+    .send({
+      email: 'test1@test.com',
+      password: 'test1234',
+      firstName: 'test',
+      lastName: 'test',
+      isFilmmaker: false,
+    })
+    .expect(201);
+
+  const id = res.body.id;
+
+  return id;
 };

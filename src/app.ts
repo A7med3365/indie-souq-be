@@ -20,11 +20,12 @@ app.use(json());
 app.use(
   cookieSession({
     signed: false,
-    secure: process.env.NODE_ENV !== 'test',
+    secure: false, // process.env.NODE_ENV !== 'test', //todo: change this back later
   })
 );
 
-import { authRouter } from './routes/signup';
+import { authRouter } from './routes/user';
+import { projectRouter } from './routes/project';
 import { errorHandler } from './middleware/error-handler';
 import { NotFoundError } from './errors/not-found-error';
 import { logRequestInfo } from './middleware/log-request-info';
@@ -32,6 +33,7 @@ import { logRequestInfo } from './middleware/log-request-info';
 app.use(logRequestInfo);
 
 app.use(authRouter);
+app.use(projectRouter);
 
 app.all('*', () => {
   throw new NotFoundError();

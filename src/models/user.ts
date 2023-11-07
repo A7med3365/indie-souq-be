@@ -36,7 +36,7 @@ interface UserDoc extends mongoose.Document {
   tags: string[];
 }
 
-const userSchema = new mongoose.Schema(
+const userSchema = new mongoose.Schema<UserDoc>(
   {
     firstName: {
       type: String,
