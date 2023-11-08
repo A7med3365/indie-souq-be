@@ -14,21 +14,21 @@ const allowedOrigins = ['*'];
 
 app.use(
   cors({
-    origin: 'http://localhost:3002',
+    origin: '*',
     methods: 'GET,PUT,POST,DELETE',
     allowedHeaders: 'Content-Type,Authorization,set-cookie',
     credentials: true, // Allow cookies
   })
 );
-// app.options('*', cors());
+app.options('*', cors());
 
 app.set('trust proxy', true);
 app.use(json());
 app.use(
   cookieSession({
     signed: false,
-    secure: false, // process.env.NODE_ENV !== 'test', //todo: change this back later
-    // sameSite: 'none',
+    secure: process.env.NODE_ENV !== 'test', //todo: change this back later
+    sameSite: 'none',
   })
 );
 
