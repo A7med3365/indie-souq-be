@@ -16,7 +16,7 @@ app.use(
   cors({
     origin: 'http://localhost:3002',
     methods: 'GET,PUT,POST,DELETE',
-    allowedHeaders: 'Content-Type,Authorization',
+    allowedHeaders: 'Content-Type,Authorization,set-cookie',
     credentials: true, // Allow cookies
   })
 );
@@ -28,7 +28,7 @@ app.use(
   cookieSession({
     signed: false,
     secure: false, // process.env.NODE_ENV !== 'test', //todo: change this back later
-    sameSite: 'none',
+    // sameSite: 'none',
   })
 );
 
