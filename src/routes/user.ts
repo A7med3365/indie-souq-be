@@ -113,8 +113,10 @@ router.put(
       .optional()
       .isArray()
       .withMessage('languages must be valid'),
-    body('avatar').optional().isURL().withMessage('avatar must be valid'),
-    body('banner').optional().isURL().withMessage('banner must be valid'),
+    body('avatar').optional(),
+    body('banner').optional(),
+    // body('avatar').optional().isURL().withMessage('avatar must be valid'),
+    // body('banner').optional().isURL().withMessage('banner must be valid'),
     body('bio').optional(),
     body('tags').optional().isArray().withMessage('tags must be valid'),
   ],

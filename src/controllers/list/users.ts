@@ -41,6 +41,7 @@ const updateUserCtrl = async (req: Request, res: Response) => {
   try {
     res.status(200).send(user);
   } catch (error) {
+    console.log(error);
     throw new InternalError();
   }
 };
