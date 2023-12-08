@@ -15,6 +15,7 @@ import {
   listUsersCtrl,
   getUserCtrl,
   updateUserCtrl,
+  listFilmmakersCtrl,
 } from '../controllers/list/users';
 
 router.post(
@@ -71,6 +72,7 @@ router.get('/api/users/currentuser', currentUser, currentUserCtrl);
 router.get('/api/users/signout', signoutCtrl);
 
 router.get('/api/users', listUsersCtrl);
+router.get('/api/filmmakers', listFilmmakersCtrl);
 router.get('/api/users/:userId', cors(), getUserCtrl);
 
 router.put(

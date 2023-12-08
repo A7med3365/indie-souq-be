@@ -14,6 +14,17 @@ const listProjectCtrl = async (req: Request, res: Response) => {
   }
 };
 
+const listUserProjectCtrl = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.userId;
+    const projectsList = await Project.find({ creator: id });
+    res.status(200).send(projectsList);
+  } catch (error) {
+    console.log(error);
+    throw new InternalError();
+  }
+};
+
 //todo: add query to filter the projects to published only
 const showProjectCtrl = async (req: Request, res: Response) => {
   const id = req.params.projectId;
@@ -29,4 +40,4 @@ const showProjectCtrl = async (req: Request, res: Response) => {
 };
 
 //todo: add listing of the user projects
-export { listProjectCtrl, showProjectCtrl };
+export { listProjectCtrl, showProjectCtrl, listUserProjectCtrl };

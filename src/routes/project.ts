@@ -1,7 +1,11 @@
 import express from 'express';
-import { body } from 'express-validator';
+import { body, param } from 'express-validator';
 import { validateRequest } from '../middleware/validate-req';
-import { listProjectCtrl, showProjectCtrl } from '../controllers/project/list';
+import {
+  listProjectCtrl,
+  showProjectCtrl,
+  listUserProjectCtrl,
+} from '../controllers/project/list';
 import { createProjectCtrl } from '../controllers/project/create';
 import { updateProjectCtrl } from '../controllers/project/update';
 import { currentUser } from '../middleware/logged-in-check';
@@ -9,6 +13,17 @@ import { currentUser } from '../middleware/logged-in-check';
 const router = express.Router();
 
 router.get('/api/projects', listProjectCtrl);
+router.get(
+  '/api/user-projects/:userId',
+  [
+    param('userId')
+      .notEmpty()
+      .isMongoId()
+      .withMessage('Creator ID must be valid'),
+  ],
+  validateRequest,
+  listUserProjectCtrl
+);
 router.get('/api/projects/:projectId', showProjectCtrl);
 
 router.post(

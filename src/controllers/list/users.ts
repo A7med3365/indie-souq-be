@@ -13,6 +13,16 @@ const listUsersCtrl = async (req: Request, res: Response) => {
   }
 };
 
+const listFilmmakersCtrl = async (req: Request, res: Response) => {
+  try {
+    const usersList = await User.find({ isFilmmaker: true });
+    res.status(200).send(usersList);
+  } catch (error) {
+    console.log(error);
+    throw new InternalError();
+  }
+};
+
 const getUserCtrl = async (req: Request, res: Response) => {
   const id = req.params.userId;
   const user = await User.findById(id);
@@ -46,4 +56,4 @@ const updateUserCtrl = async (req: Request, res: Response) => {
   }
 };
 
-export { listUsersCtrl, getUserCtrl, updateUserCtrl };
+export { listUsersCtrl, getUserCtrl, updateUserCtrl, listFilmmakersCtrl };
