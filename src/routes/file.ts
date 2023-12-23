@@ -43,4 +43,43 @@ router.post(
   }
 );
 
+router.post(
+  '/api/multi-upload',
+  upload.array('files'),
+  async (req: Request, res: Response) => {
+    try {
+      const files = req.files as Express.Multer.File[];
+      console.log(files);
+      if (files) {
+        const uploadResponses = [];
+        for (const file of files) {
+          const encoded = file.buffer.toString('base64');
+          const fileName = file.originalname.replace(/[^\w.]/g, '-');
+
+          const uploadResponse = await axios.post(
+            'https://ih4rl4ru21.execute-api.me-south-1.amazonaws.com/default/S3FileUplaod',
+            { fileName: fileName, file: encoded }
+          );
+
+          console.log(uploadResponse.data);
+
+          if (uploadResponse.data.statusCode === 200) {
+            uploadResponses.push({
+              message: uploadResponse.data.message,
+              url: uploadResponse.data.url,
+            });
+          }
+        }
+        res.status(200).send(uploadResponses);
+      } else {
+        console.log('ERROR /api/multi-upload : files not defined');
+        throw new BadRequestError('Files not defined');
+      }
+    } catch (error) {
+      console.log(error);
+      throw new InternalError();
+    }
+  }
+);
+
 export { router as fileRouter };

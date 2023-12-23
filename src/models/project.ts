@@ -30,6 +30,7 @@ interface ProjectDoc extends mongoose.Document {
     story: string;
     rewards: Reward[];
   };
+  budget: Array<Object>;
 }
 
 interface ProjectModel extends mongoose.Model<ProjectDoc> {
@@ -101,6 +102,9 @@ const projectSchema = new mongoose.Schema<ProjectDoc>(
       },
       rewards: {
         type: [rewardSchema],
+      },
+      budget: {
+        type: [Object],
       },
     },
   },

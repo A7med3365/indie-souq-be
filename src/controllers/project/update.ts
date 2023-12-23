@@ -26,6 +26,21 @@ const updateProjectCtrl = async (req: Request, res: Response) => {
     console.log('Not Authorized');
     throw new NotAuthorizedError();
   }
+  if (updateData.budget) {
+    for (let i = 0; i < updateData.budget.length; i++) {
+      if (updateData.budget[i].name === '') {
+        console.log('Budget name cannot be empty');
+        throw new BadRequestError('Budget section name cannot be empty');
+      }
+    }
+    const sum = updateData.budget.reduce((acc: number, curr: any) => {
+      return acc + curr.percentage;
+    }, 0);
+    if (sum !== 100) {
+      console.log('Budget percentages must add up to 100');
+      throw new BadRequestError('Budget percentages must add up to 100');
+    }
+  }
 
   try {
     const updatedProject = await Project.findByIdAndUpdate(id, updateData, {

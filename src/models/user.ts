@@ -46,6 +46,11 @@ const userSchema = new mongoose.Schema<UserDoc>(
       type: String,
       required: true,
     },
+    role: {
+      type: String,
+      required: true,
+      default: 'User',
+    },
     email: {
       type: String,
       required: true,
