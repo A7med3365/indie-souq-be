@@ -57,5 +57,5 @@ it('returns the project if the project is found', async () => {
     .expect(200);
 
   expect(projectResponse.body.title).toEqual('test');
-  expect(projectResponse.body.creator).toEqual(creatorId);
+  expect(projectResponse.body.creator.id).toEqual(creatorId);
 });
