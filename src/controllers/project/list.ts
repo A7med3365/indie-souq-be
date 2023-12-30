@@ -6,7 +6,22 @@ import { NotFoundError } from '../../errors/not-found-error';
 
 const listProjectCtrl = async (req: Request, res: Response) => {
   try {
-    const projectsList = await Project.find({});
+    let query = {};
+    //TODO: add sorting and filtering options, search by title, genre, type, creator, etc. and sort by date, popularity, etc.
+    if (req.query.pub) {
+      query = { isPublished: true };
+    }
+    let projectsList;
+    if (req.query.min) {
+      projectsList = await Project.find(query)
+        .select('title creator genre type isPublished details.media')
+        .populate('creator', 'firstName lastName');
+    } else {
+      projectsList = await Project.find(query).populate(
+        'creator',
+        'firstName lastName'
+      );
+    }
     res.status(200).send(projectsList);
   } catch (error) {
     console.log(error);
