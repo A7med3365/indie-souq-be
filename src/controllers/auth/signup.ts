@@ -33,6 +33,7 @@ const signupCtrl = async (req: Request, res: Response) => {
       {
         id: user.id,
         email: user.email,
+        isFilmmaker: user.isFilmmaker,
       },
       process.env.JWT_KEY!
     );
