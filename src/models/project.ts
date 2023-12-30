@@ -13,9 +13,19 @@ interface Reward {
   bulletin: string[];
 }
 
-interface ProjectDoc extends mongoose.Document {
+interface BudgetSection {
+  name: string;
+  percentage: number;
+  color: string;
+}
+
+export interface ProjectDoc extends mongoose.Document {
   title: string;
-  isDetailsComplete: boolean;
+  progress: {
+    details: boolean;
+    funding: boolean;
+    budget: boolean;
+  }
   isPublished: boolean;
   creator: mongoose.Types.ObjectId;
   type: string;
@@ -30,7 +40,7 @@ interface ProjectDoc extends mongoose.Document {
     story: string;
     rewards: Reward[];
   };
-  budget: Array<Object>;
+  budget: BudgetSection[];
 }
 
 interface ProjectModel extends mongoose.Model<ProjectDoc> {
@@ -58,9 +68,19 @@ const projectSchema = new mongoose.Schema<ProjectDoc>(
       type: String,
       required: true,
     },
-    isDetailsComplete: {
-      type: Boolean,
-      default: false,
+    progress: {
+      details: {
+        type: Boolean,
+        default: false,
+      },
+      funding: {
+        type: Boolean,
+        default: false,
+      },
+      budget: {
+        type: Boolean,
+        default: false,
+      },
     },
     isPublished: {
       type: Boolean,
@@ -103,9 +123,21 @@ const projectSchema = new mongoose.Schema<ProjectDoc>(
       rewards: {
         type: [rewardSchema],
       },
-      budget: {
-        type: [Object],
-      },
+    },
+    budget: {
+      type: [
+        {
+          name: {
+            type: String,
+          },
+          percentage: {
+            type: Number,
+          },
+          color: {
+            type: String,
+          },
+        },
+      ]
     },
   },
   {
