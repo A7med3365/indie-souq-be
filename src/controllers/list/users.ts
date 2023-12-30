@@ -5,7 +5,11 @@ import { User } from '../../models/user';
 
 const listUsersCtrl = async (req: Request, res: Response) => {
   try {
-    const usersList = await User.find({});
+    let query = {};
+    if (req.query.filmmakers) {
+      query = { isFilmmaker: true };
+    }
+    const usersList = await User.find(query);
     res.status(200).send(usersList);
   } catch (error) {
     console.log(error);
