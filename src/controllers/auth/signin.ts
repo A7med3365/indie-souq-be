@@ -26,6 +26,7 @@ const signinCtrl = async (req: Request, res: Response) => {
     {
       id: existingUser.id,
       email: existingUser.email,
+      isFilmmaker: existingUser.isFilmmaker,
     },
     process.env.JWT_KEY!
   );
