@@ -39,12 +39,14 @@ import { errorHandler } from './middleware/error-handler';
 import { NotFoundError } from './errors/not-found-error';
 import { logRequestInfo } from './middleware/log-request-info';
 import { fileRouter } from './routes/file';
+import { fundRouter } from './routes/fund';
 
 app.use(logRequestInfo);
 
 app.use(authRouter);
 app.use(projectRouter);
 app.use(fileRouter);
+app.use(fundRouter)
 
 app.all('*', () => {
   throw new NotFoundError();
