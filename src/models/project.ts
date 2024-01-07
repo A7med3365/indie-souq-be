@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import { User } from './user';
 
 interface ProjectAttrs {
   title: string;
@@ -21,11 +20,12 @@ interface BudgetSection {
 
 export interface ProjectDoc extends mongoose.Document {
   title: string;
+  funds: mongoose.Types.ObjectId[];
   progress: {
     details: boolean;
     funding: boolean;
     budget: boolean;
-  }
+  };
   isPublished: boolean;
   creator: mongoose.Types.ObjectId;
   type: string;
@@ -68,6 +68,12 @@ const projectSchema = new mongoose.Schema<ProjectDoc>(
       type: String,
       required: true,
     },
+    funds: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Fund',
+      },
+    ],
     progress: {
       details: {
         type: Boolean,
@@ -137,7 +143,7 @@ const projectSchema = new mongoose.Schema<ProjectDoc>(
             type: String,
           },
         },
-      ]
+      ],
     },
   },
   {

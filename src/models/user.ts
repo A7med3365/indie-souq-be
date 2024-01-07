@@ -34,6 +34,7 @@ interface UserDoc extends mongoose.Document {
   banner: string;
   bio: string;
   tags: string[];
+  funds: mongoose.Types.ObjectId[];
 }
 
 const userSchema = new mongoose.Schema<UserDoc>(
@@ -92,6 +93,12 @@ const userSchema = new mongoose.Schema<UserDoc>(
       type: [String],
       default: [],
     },
+    funds: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Fund',
+      },
+    ],
   },
   {
     toJSON: {
